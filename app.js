@@ -1,11 +1,6 @@
-/**
- * 📅 Timetable App
- * Author: Hồ Tăng Nhật Hiếu
- * Year: 2025
- */
-
+/* ====================== CẤU HÌNH TUẦN ====================== */
 const CONFIG = {
-  anchorMonday: "2025-09-08", // Thứ 2 tuần 5
+  anchorMonday: "2025-09-08", // Thứ 2 của tuần 5
   anchorWeekNo: 5,
   minWeek: 5,
   maxWeek: 20,
@@ -14,6 +9,7 @@ const CONFIG = {
   periods: 9
 };
 
+/* ====================== DỮ LIỆU TKB ====================== */
 const COURSES = [
   { title:"Lịch sử ĐCSVN", groups:"KTĐ3+TĐH3+KHD3+KTX3", teacher:"ThS. GVC. Nguyễn Thị Hiền", room:"HT.4.1", day:1, periods:[1,4], weekRanges:[[6,10],[12,14]] },
   { title:"Lập trình nhúng", groups:"KHD3", teacher:"TS. Hà Xuân Vinh", room:"R.IV.1", day:2, periods:[6,9], weekRanges:[[5,10],[12,17]] },
@@ -22,6 +18,7 @@ const COURSES = [
   { title:"Khởi nghiệp", groups:"KHD3+KTX4", teacher:"TS. Hoàng Kim Toàn", room:"KN1", day:5, periods:[6,9], weekRanges:[[6,10],[12,18]] },
 ];
 
+/* ===== BẢNG GIỜ HỌC (1→9) ===== */
 const TIMES = [
   [1, "07:00", "07:50"],
   [2, "07:55", "08:45"],
@@ -34,6 +31,25 @@ const TIMES = [
   [9, "15:45", "16:35"]
 ];
 
+/* ====================== CÂU CHÚC NGẪU NHIÊN ====================== */
+const MESSAGES = [
+  "Chúc bạn học tập hiệu quả 📚",
+  "Chúc một tuần học tập vui vẻ ✨",
+  "Cố gắng hết mình nhé 💪",
+  "Chúc học tốt, giữ sức khỏe nha 🌱",
+  "Mọi việc suôn sẻ, thuận lợi 💫",
+  "Chúc một ngày tràn đầy năng lượng ☀️",
+  "Kiên trì sẽ có thành công 🚀",
+  "Chúc bạn thật nhiều niềm vui 🌸",
+  "Luôn giữ tinh thần lạc quan nhé 🌈"
+];
+
+// Hàm chọn ngẫu nhiên
+function randomMessage() {
+  return MESSAGES[Math.floor(Math.random() * MESSAGES.length)];
+}
+
+/* ====================== HÀM NGÀY/TUẦN ====================== */
 const oneDay = 86400000, oneWeek = 7*oneDay;
 const toDate = (s)=>{ const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
 const fmt = (d)=> d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"});
@@ -47,6 +63,7 @@ const weekNoFromDate=(any)=> clampWeek(weekNoFromDateRaw(any));
 const mondayFromWeekNo=(no)=> addWeeks(anchorMonday, clampWeek(no) - CONFIG.anchorWeekNo);
 const activeInWeek = (c,no)=> c.weekRanges.some(([a,b])=> no>=a && no<=b);
 
+/* ====================== DOM & STATE ====================== */
 const theadRow = document.getElementById("theadRow");
 const tbody = document.getElementById("tbody");
 const subtitle = document.getElementById("subtitle");
@@ -55,16 +72,10 @@ const btnPrev = document.getElementById("prevBtn");
 const btnNext = document.getElementById("nextBtn");
 const btnToday = document.getElementById("todayBtn");
 const weekInput = document.getElementById("weekInput");
-const periodBody = document.getElementById("periodBody");
-const toggleThemeBtn = document.getElementById("toggleTheme");
 
 let selectedDate = null;
-let currentWeek = (()=> {
-  const url = new URL(location.href); const q = +url.searchParams.get("w");
-  const wk = Number.isFinite(q) ? q : weekNoFromDate(new Date());
-  return clampWeek(wk);
-})();
 
+/* ====================== RENDER HEADER TKB ====================== */
 function renderHeader(mon){
   theadRow.innerHTML = "";
   const th0 = document.createElement("th"); th0.textContent = "Tiết"; theadRow.appendChild(th0);
@@ -76,6 +87,7 @@ function renderHeader(mon){
   });
 }
 
+/* ====================== GIỜ THEO TIẾT ====================== */
 const timeOfPeriod = (p)=> {
   const f = TIMES.find(row=>row[0]===p);
   return f ? {start: f[1], end: f[2]} : null;
@@ -85,12 +97,19 @@ const timeOfSpan = (p1,p2)=> {
   return (a&&b) ? `${a.start}–${b.end}` : "";
 };
 
+/* ====================== RENDER TKB ====================== */
+let currentWeek = (()=> {
+  const url = new URL(location.href); const q = +url.searchParams.get("w");
+  const wk = Number.isFinite(q) ? q : weekNoFromDate(new Date());
+  return clampWeek(wk);
+})();
+
 function buildTable(weekNo){
   weekNo = clampWeek(weekNo);
   const mon = mondayFromWeekNo(weekNo);
   const sun = addDays(mon,6);
 
-  subtitle.textContent = `Tuần ${weekNo} • ${fmt(mon)} – ${fmt(sun)}`;
+  subtitle.textContent = randomMessage();
   weekRange.textContent = `${fmt(mon)} → ${fmt(sun)}`;
   weekInput.value = weekNo;
   btnPrev.disabled = (weekNo <= CONFIG.minWeek);
@@ -106,26 +125,33 @@ function buildTable(weekNo){
     const tr = document.createElement("tr");
     const thp = document.createElement("th");
     const t = timeOfPeriod(p);
-    thp.innerHTML = `<div>${p}</div><div class="small">${t.start}–${t.end}</div>`;
+
+    if (t){
+      thp.innerHTML = `<div>${p}</div><div class="small">${t.start}–${t.end}</div>`;
+    } else {
+      thp.textContent = p;
+    }
     tr.appendChild(thp);
 
     CONFIG.dayCols.forEach((dIdx, colI)=>{
       if (filled[p][colI]) return;
+
       const course = COURSES.find(c => c.day===dIdx && activeInWeek(c, weekNo) && c.periods[0]===p);
 
       if (course){
         const span = course.periods[1] - course.periods[0] + 1;
         const td = document.createElement("td");
         td.rowSpan = span;
-        const timeSpan = timeOfSpan(course.periods[0], course.periods[1]);
+        td.classList.add("course-cell");
+
         td.innerHTML = `
           <div class="course">
             <div class="title">${course.title}</div>
             <div class="meta">${course.room} • ${course.groups}</div>
             <div class="meta">${course.teacher}</div>
-            <div class="meta">(${timeSpan})</div>
           </div>`;
         tr.appendChild(td);
+
         for(let k=0;k<span;k++){ if (p+k<=rows) filled[p+k][colI] = true; }
       } else {
         const covering = COURSES.find(c => c.day===dIdx && activeInWeek(c, weekNo) && c.periods[0]<p && c.periods[1]>=p);
@@ -148,14 +174,10 @@ function buildTable(weekNo){
   history.replaceState(null,"",u.toString());
 }
 
-(function renderPeriodTable(){
-  periodBody.innerHTML = TIMES.map(([i, start, end]) =>
-    `<tr><td>${i}</td><td>${start}</td><td>${end}</td></tr>`
-  ).join("");
-})();
-
+/* ====================== ĐIỀU HƯỚNG ====================== */
 function step(delta){ 
-  currentWeek = clampWeek(currentWeek + delta);
+  currentWeek = currentWeek + delta;
+  currentWeek = clampWeek(currentWeek);
   buildTable(currentWeek); 
 }
 btnPrev.addEventListener("click", ()=> step(-1));
@@ -166,6 +188,7 @@ btnToday.addEventListener("click", ()=> {
   buildTable(currentWeek); 
 });
 
+/* ====================== NHẬP SỐ TUẦN ====================== */
 document.getElementById("weekPill").addEventListener("click", ()=> weekInput.focus());
 weekInput.addEventListener("change", ()=>{
   const v = clampWeek(parseInt(weekInput.value,10) || CONFIG.minWeek);
@@ -173,18 +196,14 @@ weekInput.addEventListener("change", ()=>{
   currentWeek = v; buildTable(currentWeek);
 });
 
-/* ===== Theme Toggle ===== */
-const savedTheme = localStorage.getItem("theme") || "light";
-document.body.setAttribute("data-theme", savedTheme);
-toggleThemeBtn.textContent = savedTheme==="dark" ? "☀️ Light" : "🌙 Dark";
-
-toggleThemeBtn.addEventListener("click", ()=>{
-  let current = document.body.getAttribute("data-theme");
-  let next = current==="dark" ? "light" : "dark";
-  document.body.setAttribute("data-theme", next);
-  toggleThemeBtn.textContent = next==="dark" ? "☀️ Light" : "🌙 Dark";
-  localStorage.setItem("theme", next);
+/* ====================== DARK MODE ====================== */
+const toggleBtn = document.getElementById("toggleTheme");
+toggleBtn.addEventListener("click", ()=>{
+  const html = document.documentElement;
+  const dark = html.getAttribute("data-theme")==="dark";
+  html.setAttribute("data-theme", dark ? "light":"dark");
+  toggleBtn.textContent = dark ? "🌙 Dark" : "☀ Light";
 });
 
-/* ===== INIT ===== */
+/* ====================== INIT ====================== */
 buildTable(currentWeek);

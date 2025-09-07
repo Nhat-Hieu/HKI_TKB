@@ -1,148 +1,174 @@
-/* ===================== THEME VARIABLES ===================== */
 :root {
-  --bg:#f6f8fb;
-  --card:#ffffff;
-  --line:#e3e8ef;
-  --text:#0f172a;
-  --muted:#475569;
-
-  --chip-bg:#e6f4fb;
-  --chip-bd:#b7e3f8;
-  --chip-tx:#075985;
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --line: #e3e8ef;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #0ea5e9;
+  --chip-bg: #e6f4fb;
+  --chip-bd: #b7e3f8;
+  --chip-tx: #075985;
 }
 
 [data-theme="dark"] {
-  --bg:#0f172a;
-  --card:#1e293b;
-  --line:#334155;
-  --text:#f1f5f9;
-  --muted:#94a3b8;
-
-  --chip-bg:#1e40af;
-  --chip-bd:#3b82f6;
-  --chip-tx:#e0f2fe;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --line: #334155;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --chip-bg: #1e3a8a;
+  --chip-bd: #3b82f6;
+  --chip-tx: #e0f2fe;
 }
 
-/* ============================ RESET ============================ */
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color: var(--text);
   background: var(--bg);
 }
-
-/* =========================== HEADER =========================== */
-header{
-  position: sticky; top: 0; z-index: 5;
+header {
+  position: sticky;
+  top: 0;
   background: #ffffffcc;
-  backdrop-filter: blur(6px);
   padding: 14px 12px;
   border-bottom: 1px solid #e5e7eb;
+  backdrop-filter: blur(6px);
+  z-index: 5;
 }
-[data-theme="dark"] header{ background: #1e293bcc; border-color: var(--line); }
+[data-theme="dark"] header { background: #1e293bcc; }
 
-h1{ margin: 0 0 6px; font-size: 20px; }
-.sub{ color: var(--muted); font-size: 13px; }
+h1 { margin: 0 0 6px; font-size: 20px; }
+.sub { color: var(--muted); font-size: 13px; }
+.controls { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
-.controls{
-  margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+button {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
 }
-button{
-  border: 1px solid var(--line); background: var(--card); color: var(--text);
-  padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
+[data-theme="dark"] button { background: var(--card); border-color: var(--line); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 999px;
+  color: #334155;
+  font-size: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
 }
-button:disabled{ opacity: .45; cursor: not-allowed; }
-.pill{
-  display: inline-flex; align-items: center; gap: 6px;
-  border: 1px solid var(--line); background: var(--card);
-  border-radius: 999px; color: var(--text); font-size: 12px; padding: 6px 10px; cursor: pointer;
+.pill input {
+  width: 60px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-weight: 700;
 }
-.pill input{ width: 60px; border: none; outline: none; text-align: center; font-weight: 700; }
-.badge{
-  display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px;
-  background: var(--chip-bg); border: 1px solid var(--chip-bd); color: var(--chip-tx); font-size: 11px;
+[data-theme="dark"] .pill { background: var(--card); border-color: var(--line); color: var(--text); }
+
+main { padding: 12px; }
+.wrap { max-width: 960px; margin: 0 auto; }
+
+/* ===== TKB TABLE ===== */
+.table-scroll {
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  table-layout: fixed;
+}
+colgroup col.first { width: 112px; }
+#tkbTable thead th {
+  background: #fafafa;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+[data-theme="dark"] #tkbTable thead th { background: #1e293b; }
+
+th, td {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 4px 6px;
+  vertical-align: middle;
+}
+#tkbTable thead th:first-child,
+#tkbTable tbody th {
+  background: #fafafa;
+  color: #0f172a;
+  font-weight: 700;
+}
+[data-theme="dark"] #tkbTable thead th:first-child,
+[data-theme="dark"] #tkbTable tbody th { background: #1e293b; color: var(--text); }
+
+#tkbTable tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+td { font-size: 13px; background: #fff; }
+[data-theme="dark"] td { background: var(--card); }
+
+/* Bắt td chứa môn học giãn theo số tiết */
+#tkbTable td {
+  position: relative;
 }
 
-/* ============================ LAYOUT ============================ */
-main{ padding: 12px; }
-.wrap{ max-width: 1040px; margin: 0 auto; }
-
-/* ========================= TKB TABLE ========================= */
-.table-scroll{ overflow: auto; border-radius: 14px; border: 1px solid var(--line); background: var(--card); }
-table{
-  width: 100%; border-collapse: separate; border-spacing: 0;
-  background: var(--card); table-layout: fixed;
-}
-colgroup col.first{ width: 112px; }
-
-#tkbTable thead th{
-  background: var(--card); border-bottom: 1px solid var(--line);
-  font-weight: 700; z-index: 1;
-}
-th, td{ border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: middle; }
-#tkbTable thead th:first-child, #tkbTable tbody th{ background: var(--card); color: var(--text); font-weight: 700; }
-#tkbTable tbody th{ position: sticky; left: 0; z-index: 2; text-align: center; }
-
-td{ font-size: 13px; background: var(--card); }
-
-.course{
+/* Box môn học phải full td */
+.course {
+  position: absolute;       /* phủ hết bên trong td */
+  top: 0; bottom: 0; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   border: 1px solid var(--chip-bd);
   background: var(--chip-bg);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 6px;
-  line-height: 1.25;
+  line-height: 1.3;
+  box-sizing: border-box;
 }
-.title{ font-weight: 700; color: var(--text); }
-.meta{ color: var(--muted); font-size: 11px; margin-top: 2px; }
-.empty{ color: #94a3b8; font-style: italic; text-align: center; }
-.today{ background: #fff7ed; }
-.small{ display: block; color: var(--muted); font-weight: 500; font-size: 11px; margin-top: 2px; }
+.title { font-weight: 700; color: var(--text); }
+.meta { color: var(--chip-tx); font-size: 11px; margin-top: 2px; }
+.empty { color: #94a3b8; font-style: italic; }
+.today { background: #fff7ed; }
+[data-theme="dark"] .today { background: #1e293b; }
 
-/* ====================== PERIOD TABLE (KHUNG GIỜ) ====================== */
-.period-card{
-  margin-top: 18px; padding: 10px;
-  border: 1px solid var(--line); border-radius: 10px; background: var(--card);
-  max-width: 420px;
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 6px 14px;   /* tăng padding cho to hơn */
+  border-radius: 999px;
+  background: #e2f2ff;
+  border: 1px solid #c7e5ff;
+  color: #075985;
+  font-size: 14px;     /* chữ to hơn */
+  font-weight: 600;    /* chữ đậm */
 }
-.period-title{ margin: 0 0 10px; font-size: 16px; }
-.period-wrap{ overflow: auto; border-radius: 12px; border: 1px solid var(--line); }
+.small { display: block; color: #64748b; font-weight: 500; font-size: 11px; margin-top: 2px; }
 
-.period-table{
-  width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card);
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 18px 0;
 }
-.period-table thead th{ background: var(--card); font-weight: 700; }
-.period-table th, .period-table td{
-  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  padding: 6px 8px; text-align: center;
-}
-.period-table tr:last-child td, .period-table tr:last-child th{ border-bottom: none; }
-.period-table th:first-child, .period-table td:first-child{ width: 40px; }
-.period-table th:last-child, .period-table td:last-child{ border-right: none; }
-
-/* ============================ FOOTER ============================ */
-.footer{ text-align: center; color: var(--muted); font-size: 13px; margin: 20px 0; }
-
-/* =========================== RESPONSIVE =========================== */
-@media (max-width: 720px){
-  /* Cột “Tiết” hẹp hơn để nhường chỗ cho nội dung */
-  colgroup col.first{ width: 80px; }
-
-  th, td{ padding: 6px 4px; }
-
-  .course{ padding: 4px; font-size: 12px; }
-  .title{ font-size: 13px; }
-
-  /* QUAN TRỌNG: hiển thị đầy đủ meta trên mobile */
-  .meta{
-    display: block;            /* không ẩn nữa */
-    font-size: 10px;
-    line-height: 1.3;
-    margin-top: 2px;
-    color: var(--muted);
-    word-wrap: break-word;     /* xuống dòng khi dài */
-    overflow-wrap: anywhere;
-  }
-
-  .small{ font-size: 10px; }
-}
+footer a { text-decoration: none; font-weight: 700; color: var(--accent); }
