@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thời Khóa Biểu HKI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="light">
+  <header>
+    <div class="wrap">
+      <h1>Thời Khóa Biểu HKI • Nhật Hiếu ❤️</h1>
+      <div class="sub" id="subtitle">—</div>
+      <div class="controls">
+        <button id="prevBtn">⬅ Tuần trước</button>
+        <button id="todayBtn">Tuần hiện tại</button>
+        <button id="nextBtn">Tuần sau ➡</button>
+        <span class="pill" id="weekPill" title="Bấm để nhập số tuần">
+          Tuần:
+          <input id="weekInput" type="number" min="5" step="1" />
+        </span>
+        <span class="badge" id="weekRange"></span>
+        <button id="toggleTheme">🌙 Dark</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <!-- TKB -->
+      <div class="table-scroll">
+        <table id="tkbTable" aria-label="Thời khóa biểu">
+          <colgroup>
+            <col class="first" />
+            <col /><col /><col /><col /><col />
+          </colgroup>
+          <thead><tr id="theadRow"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- KHUNG GIỜ HỌC -->
+      <section class="period-card">
+        <h2 class="period-title">Khung giờ học</h2>
+        <div class="period-wrap">
+          <table class="period-table" aria-label="Khung giờ học">
+            <thead>
+              <tr>
+                <th>Tiết</th>
+                <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th>
+              </tr>
+            </thead>
+            <tbody id="periodBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        Made with ❤️ by Hồ Tăng Nhật Hiếu – 2025
+      </footer>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
