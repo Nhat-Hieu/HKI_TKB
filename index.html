@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body data-theme="light">
-  <!-- ===== HEADER ===== -->
   <header>
     <div class="wrap">
       <h1>Thời Khóa Biểu HKI • Nhật Hiếu ❤️</h1>
@@ -16,18 +15,19 @@
         <button id="prevBtn">⬅ Tuần trước</button>
         <button id="todayBtn">Tuần hiện tại</button>
         <button id="nextBtn">Tuần sau ➡</button>
-        <span class="pill" id="weekPill">
-          Tuần: <input id="weekInput" type="number" min="5" step="1" />
+        <span class="pill" id="weekPill" title="Bấm để nhập số tuần">
+          Tuần:
+          <input id="weekInput" type="number" min="5" step="1" />
         </span>
         <span class="badge" id="weekRange"></span>
-        <button id="modeToggle" class="pill">🌙 Dark</button>
+        <button id="toggleTheme">🌙 Dark</button>
       </div>
     </div>
   </header>
 
-  <!-- ===== MAIN ===== -->
   <main>
     <div class="wrap">
+      <!-- TKB -->
       <div class="table-scroll">
         <table id="tkbTable" aria-label="Thời khóa biểu">
           <colgroup>
@@ -38,15 +38,13 @@
           <tbody id="tbody"></tbody>
         </table>
       </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        Made with ❤️ by Hồ Tăng Nhật Hiếu – 2025
+      </footer>
     </div>
   </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="wrap">
-      <p class="signature">Made with ❤️ by Hồ Tăng Nhật Hiếu – 2025</p>
-    </div>
-  </footer>
 
   <script src="app.js"></script>
 </body>

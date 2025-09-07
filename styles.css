@@ -23,19 +23,12 @@
 }
 
 * { box-sizing: border-box; }
-html {
-  -webkit-text-size-adjust: 100%; /* chặn iOS Safari tự zoom */
-  text-size-adjust: 100%;
-}
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color: var(--text);
   background: var(--bg);
-  overflow-x: hidden; /* tránh tràn ngang toàn trang */
 }
-
-/* ===== HEADER ===== */
 header {
   position: sticky;
   top: 0;
@@ -43,7 +36,6 @@ header {
   padding: 14px 12px;
   border-bottom: 1px solid #e5e7eb;
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px); /* Safari */
   z-index: 5;
 }
 [data-theme="dark"] header { background: #1e293bcc; }
@@ -82,32 +74,21 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   outline: none;
   text-align: center;
   font-weight: 700;
-
-  appearance: none;           /* chuẩn */
-  -moz-appearance: textfield; /* Firefox */
-}
-.pill input::-webkit-outer-spin-button,
-.pill input::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* Safari/Chrome */
-  margin: 0;
 }
 [data-theme="dark"] .pill { background: var(--card); border-color: var(--line); color: var(--text); }
 
 main { padding: 12px; }
-.wrap { max-width: 960px; margin: 0 auto; }
+.wrap { max-width: 1040px; margin: 0 auto; }
 
 /* ===== TKB TABLE ===== */
 .table-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* iOS Safari cuộn mượt */
+  overflow: auto;
   border-radius: 14px;
   border: 1px solid var(--line);
   background: var(--card);
-  max-width: 100%;
 }
-#tkbTable {
+table {
   width: 100%;
-  min-width: 720px; /* đảm bảo không ép quá nhỏ */
   border-collapse: separate;
   border-spacing: 0;
   background: var(--card);
@@ -124,31 +105,34 @@ colgroup col.first { width: 112px; }
 th, td {
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 4px 6px;
+  padding: 10px 8px;
   vertical-align: middle;
 }
 #tkbTable thead th:first-child,
 #tkbTable tbody th {
-  position: sticky;
-  left: 0;
-  z-index: 3;
   background: #fafafa;
   color: #0f172a;
   font-weight: 700;
 }
 [data-theme="dark"] #tkbTable thead th:first-child,
-[data-theme="dark"] #tkbTable tbody th {
-  background: #1e293b;
-  color: var(--text);
-}
+[data-theme="dark"] #tkbTable tbody th { background: #1e293b; color: var(--text); }
 
+#tkbTable tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
 td { font-size: 13px; background: #fff; }
 [data-theme="dark"] td { background: var(--card); }
 
-/* Box môn học */
-#tkbTable td { position: relative; }
+/* Bắt td chứa môn học giãn theo số tiết */
+#tkbTable td {
+  position: relative;
+}
+
+/* Box môn học phải full td */
 .course {
-  position: absolute;
+  position: absolute;       /* phủ hết bên trong td */
   top: 0; bottom: 0; left: 0; right: 0;
   display: flex;
   flex-direction: column;
@@ -160,11 +144,8 @@ td { font-size: 13px; background: #fff; }
   padding: 6px;
   line-height: 1.3;
   box-sizing: border-box;
-
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
+
 .title { font-weight: 700; color: var(--text); }
 .meta { color: var(--chip-tx); font-size: 11px; margin-top: 2px; }
 .empty { color: #94a3b8; font-style: italic; }
@@ -174,13 +155,12 @@ td { font-size: 13px; background: #fff; }
 .badge {
   display: inline-block;
   margin-left: 6px;
-  padding: 6px 14px;
+  padding: 2px 8px;
   border-radius: 999px;
   background: #e2f2ff;
   border: 1px solid #c7e5ff;
   color: #075985;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 11px;
 }
 .small { display: block; color: #64748b; font-weight: 500; font-size: 11px; margin-top: 2px; }
 
@@ -192,43 +172,3 @@ footer {
   margin: 18px 0;
 }
 footer a { text-decoration: none; font-weight: 700; color: var(--accent); }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .wrap { max-width: 100%; padding: 0 6px; }
-
-  #tkbTable { min-width: 640px; }
-  colgroup col.first { width: 88px; }
-
-  #tkbTable th, #tkbTable td {
-    padding: 2px 4px;
-    font-size: 12px;
-    border-width: 1px;
-  }
-
-  .controls { row-gap: 6px; }
-  .controls button,
-  .pill { padding: 6px 10px; font-size: 12px; }
-
-  #weekRange.badge {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .course { padding: 4px; border-radius: 6px; gap: 2px; }
-  .title { font-size: 13px; }
-  .meta  { font-size: 10px; }
-  .small { font-size: 10px; }
-}
-
-@media (max-width: 390px) {
-  #tkbTable { min-width: 600px; }
-  colgroup col.first { width: 82px; }
-}
-
-/* ===== SAFE AREA CHO IPHONE ===== */
-@supports (padding: max(0px)) {
-  header { padding-top: max(14px, env(safe-area-inset-top)); }
-}
