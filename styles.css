@@ -78,7 +78,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 [data-theme="dark"] .pill { background: var(--card); border-color: var(--line); color: var(--text); }
 
 main { padding: 12px; }
-.wrap { max-width: 1040px; margin: 0 auto; }
+.wrap { max-width: 960px; margin: 0 auto; }
 
 /* ===== TKB TABLE ===== */
 .table-scroll {
@@ -105,7 +105,7 @@ colgroup col.first { width: 112px; }
 th, td {
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 10px 8px;
+  padding: 6px 8px;
   vertical-align: middle;
 }
 #tkbTable thead th:first-child,
@@ -172,3 +172,44 @@ footer {
   margin: 18px 0;
 }
 footer a { text-decoration: none; font-weight: 700; color: var(--accent); }
+
+/* ==== Responsive Mobile ==== */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  #weekRange {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  button, .pill {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Table */
+  #tkbTable { min-width: 600px; }
+  colgroup col.first { width: 86px; }
+
+  #tkbTable th, #tkbTable td {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  /* Course box */
+  .course {
+    padding: 4px;
+    line-height: 1.2;
+    font-size: 12px;
+    word-break: break-word;
+    white-space: normal;
+  }
+  .course .title { font-size: 13px; }
+  .course .meta { font-size: 10px; }
+}
