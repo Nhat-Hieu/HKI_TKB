@@ -172,3 +172,32 @@ footer {
   margin: 18px 0;
 }
 footer a { text-decoration: none; font-weight: 700; color: var(--accent); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .wrap {
+    max-width: 100%;
+    padding: 0 6px;
+  }
+
+  #tkbTable th, 
+  #tkbTable td {
+    padding: 2px 4px;   /* giảm padding để gọn */
+    font-size: 12px;    /* chữ nhỏ hơn */
+  }
+
+  .course {
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  .title { font-size: 13px; }
+  .meta { font-size: 10px; }
+  .small { font-size: 10px; }
+
+  /* Cho phép cuộn ngang thay vì tràn */
+  .table-scroll {
+    overflow-x: auto;
+  }
+}
