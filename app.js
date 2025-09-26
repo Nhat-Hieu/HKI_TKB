@@ -4,15 +4,15 @@ const CONFIG = {
   anchorWeekNo: 5,
   minWeek: 5,
   maxWeek: 20,
-  weekdays: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6"],
-  dayCols: [1,2,3,4,5],
+  weekdays: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6", "Thứ 7"],
+  dayCols: [1,2,3,4,5,6], // Thứ 2 → Thứ 7
   periods: 9
 };
 
 /* ====================== DỮ LIỆU TKB ====================== */
 const COURSES = [
   { title:"Lịch sử ĐCSVN", groups:"KTĐ3+TĐH3+KHD3+KTX3", teacher:"ThS. GVC. Nguyễn Thị Hiền", room:"HT.4.1", day:1, periods:[1,4], weekRanges:[[6,10],[12,14]] },
-  { title:"Lập trình nhúng", groups:"KHD3", teacher:"TS. Hà Xuân Vinh", room:"R.IV.1", day:2, periods:[6,9], weekRanges:[[5,10],[12,17]] },
+  { title:"Lập trình nhúng", groups:"KHD3", teacher:"TS. Hà Xuân Vinh", room:"R.IV.1", day:6, periods:[2,5], weekRanges:[[9,10],[12,17]] },
   { title:"Thị giác máy tính", groups:"KHD3", teacher:"TS. Hoàng Hữu Trung", room:"R.IV.1", day:3, periods:[6,9], weekRanges:[[5,10],[12,17]] },
   { title:"Lập & quản lý dự án", groups:"KHD3", teacher:"PGS.TS. Nguyễn Quang Lịch", room:"P.2.12", day:4, periods:[1,3], weekRanges:[[5,10],[12,20]] },
   { title:"Khởi nghiệp", groups:"KHD3+KTX4", teacher:"TS. Hoàng Kim Toàn", room:"KN1", day:5, periods:[6,9], weekRanges:[[6,10],[12,18]] },
